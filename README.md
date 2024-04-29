@@ -10,10 +10,18 @@ With no hope of repealing this invasive policy, the only thing we can do is to a
 
 ## Usage
 ### Docker
+#### Build from source
 ```bash
 docker buildx build -t njupt-always-in-dorm .
 docker run -d -e NJUPT_USERNAME=your_username -e NJUPT_PASSWORD=your_password njupt-always-in-dorm
 ```
+
+#### Use pre-built image
+```bash
+docker run -d -e NJUPT_USERNAME=your_username -e NJUPT_PASSWORD=your_password ghcr.io/arcticlampyrid/njupt-always-in-dorm:main
+```
+
+Click [here](https://github.com/ArcticLampyrid/njupt_always_in_dorm/pkgs/container/njupt_always_in_dorm) to view all available tags.
 
 ### Poetry
 First, install Poetry:
