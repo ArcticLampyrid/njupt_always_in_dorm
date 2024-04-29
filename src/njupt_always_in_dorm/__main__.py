@@ -128,7 +128,7 @@ def main():
         import schedule
         import time
 
-        schedule.every().day.at("23:10", "Asia/Shanghai").do(__checkin_noexcept)
+        schedule.every().day.at("23:26", "Asia/Shanghai").do(__checkin_noexcept)
         while True:
             schedule.run_pending()
             logging.info("Next scheduled at %s", schedule.next_run())
