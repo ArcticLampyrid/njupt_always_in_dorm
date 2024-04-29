@@ -18,7 +18,7 @@ docker run -d -e NJUPT_USERNAME=your_username -e NJUPT_PASSWORD=your_password nj
 
 #### Use pre-built image
 ```bash
-docker run -d -e NJUPT_USERNAME=your_username -e NJUPT_PASSWORD=your_password ghcr.io/arcticlampyrid/njupt-always-in-dorm:main
+docker run -d -e NJUPT_USERNAME=your_username -e NJUPT_PASSWORD=your_password ghcr.io/arcticlampyrid/njupt_always_in_dorm:latest
 ```
 
 Click [here](https://github.com/ArcticLampyrid/njupt_always_in_dorm/pkgs/container/njupt_always_in_dorm) to view all available tags.
