@@ -20,11 +20,17 @@ class NjuptCheckInInfo:
 
 
 class NjuptCheckIn:
-    def __init__(self, session: requests.Session):
+    def __init__(self, session: requests.Session, use_web_vpn: bool = False):
         self.session = session
+        self.use_web_vpn = use_web_vpn
+        self.base_url = (
+            "https://xgwx.njupt.edu.cn"
+            if not use_web_vpn
+            else "https://vpn.njupt.edu.cn:8443/http/webvpn49e3a2b7922e8188784e982b822fe767656010788fa00909624b9ed851a748dc"
+        )
 
     def fetch(self) -> list[NjuptCheckInInfo]:
-        url = "https://xgwx.njupt.edu.cn/swms/a/cmobile/sskq/kqrw/getKqrw"
+        url = f"{self.base_url}/swms/a/cmobile/sskq/kqrw/getKqrw"
         response = self.session.post(url).json()
         if response["result"] == "noKqrw":  # 没有考勤任务
             return []
@@ -57,7 +63,7 @@ class NjuptCheckIn:
         return result
 
     def coordinates_to_address(self, lat: float, lon: float) -> str:
-        url = "https://xgwx.njupt.edu.cn/swms/a/amobile/authentication/qqCoordToAddr"
+        url = f"{self.base_url}/swms/a/amobile/authentication/qqCoordToAddr"
         data = {
             "lat": lat,
             "lng": lon,
@@ -72,7 +78,7 @@ class NjuptCheckIn:
     def check_location(self, info: NjuptCheckInInfo, lat: float, lon: float) -> bool:
         if not info.check_location:
             return True
-        url = "https://xgwx.njupt.edu.cn/swms/a/sskq/kqrw/checkDz"
+        url = f"{self.base_url}/swms/a/sskq/kqrw/checkDz"
         data = {
             "sjkqjd": swms_base64_encode(str(lon)),  # 实际考勤经度
             "sjkqwd": swms_base64_encode(str(lat)),  # 实际考勤纬度
@@ -85,7 +91,7 @@ class NjuptCheckIn:
         if info.check_in_count is not None and info.max_check_in_count is not None:
             if info.check_in_count >= info.max_check_in_count:
                 raise Exception("Maximum check-in count reached")
-        url = "https://xgwx.njupt.edu.cn/swms/a/cmobile/sskq/kqrw/kq"
+        url = f"{self.base_url}/swms/a/cmobile/sskq/kqrw/kq"
         data = {
             "wid": swms_base64_encode(info.id),
             "zb": [swms_base64_encode(str(lon)), swms_base64_encode(str(lat))],

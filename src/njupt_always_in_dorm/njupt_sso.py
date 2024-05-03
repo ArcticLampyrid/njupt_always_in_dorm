@@ -17,9 +17,15 @@ class NjuptSsoException(Exception):
 
 
 class NjuptSso:
-    def __init__(self, session: requests.Session):
+    def __init__(self, session: requests.Session, use_web_vpn: bool = False):
         self.session = session
         self.ocr = ddddocr.DdddOcr(show_ad=False)
+        self.use_web_vpn = use_web_vpn
+        self.base_url = (
+            "https://i.njupt.edu.cn"
+            if not use_web_vpn
+            else "https://vpn.njupt.edu.cn:8443/http/webvpn136ccf6a01ae6ad865c858647c2c1787df24ddb65ef7dc25fd3739a96a22c0ea"
+        )
 
     def login(self, username: str, password: str) -> None:
         skipCaptcha = self._ifSkipCaptcha(username)
@@ -32,7 +38,7 @@ class NjuptSso:
         else:
             logger.debug("Captcha skipped")
 
-        url = "https://i.njupt.edu.cn/ssoLogin/login"
+        url = f"{self.base_url}/ssoLogin/login"
         data = {
             "username": NjuptSso._encrypt(username, checkKey),
             "password": NjuptSso._encrypt(password, checkKey),
@@ -44,8 +50,13 @@ class NjuptSso:
         if not response["success"]:
             raise NjuptSsoException(response["code"], response["message"])
 
+        if self.use_web_vpn:
+            self.grant_service(
+                "https://vpn.njupt.edu.cn:8443/enlink/api/client/callback/cas"
+            )
+
     def grant_service(self, service: str) -> None:
-        url = f"https://i.njupt.edu.cn/cas/login?service={urllib.parse.quote(service)}"
+        url = f"{self.base_url}/cas/login?service={urllib.parse.quote(service)}"
         response = self.session.get(url)
         if not response.ok:
             raise Exception(
@@ -60,12 +71,14 @@ class NjuptSso:
         return cipher.encrypt(Padding.pad(data.encode(), AES.block_size)).hex()
 
     def _ifSkipCaptcha(self, username: str) -> bool:
-        url = f"https://i.njupt.edu.cn/ssoLogin/getCaptchaStatus/{urllib.parse.quote(username)}"
+        url = (
+            f"{self.base_url}/ssoLogin/getCaptchaStatus/{urllib.parse.quote(username)}"
+        )
         response = self.session.get(url).json()
         return response["success"]
 
     def _getCaptchaImage(self, checkKey: str) -> bytes:
-        url = f"https://i.njupt.edu.cn/sys/randomImage/{checkKey}"
+        url = f"{self.base_url}/sys/randomImage/{checkKey}"
         response = self.session.get(url).json()
         if not response["success"]:
             raise NjuptSsoException(response["code"], response["message"])
