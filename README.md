@@ -26,9 +26,12 @@ Click [here](https://github.com/ArcticLampyrid/njupt_always_in_dorm/pkgs/contain
 ### Poetry
 First, install Poetry:
 ```bash
+# For Arch Linux users, prefer to use pacman
+sudo pacman -S python-poetry
+# For most users
 pip install pipx
 pipx ensurepath
-pip install poetry
+pipx install poetry
 ```
 
 Then, install this module via Poetry in a virtual environment:
