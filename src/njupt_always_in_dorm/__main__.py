@@ -140,6 +140,7 @@ def main():
                 logging.error(
                     f"Failed to generate valid location for {info.id} after 3 retries"
                 )
+                return
         checkin.check_in(info, lat, lon, address)
         logging.info(f"Checked in: {info.id}")
 
