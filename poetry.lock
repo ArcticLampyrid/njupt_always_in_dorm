@@ -510,14 +510,16 @@ use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
 name = "schedule"
-version = "1.2.1"
+version = "1.2.2"
 description = "Job scheduling for humans."
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "schedule-1.2.1-py2.py3-none-any.whl", hash = "sha256:14cdeb083a596aa1de6dc77639a1b2ac8bf6eaafa82b1c9279d3612823063d01"},
-    {file = "schedule-1.2.1.tar.gz", hash = "sha256:843bc0538b99c93f02b8b50e3e39886c06f2d003b24f48e1aa4cadfa3f341279"},
+    {file = "schedule-1.2.2-py3-none-any.whl", hash = "sha256:5bef4a2a0183abf44046ae0d164cadcac21b1db011bdd8102e4a0c1e91e06a7d"},
 ]
+
+[package.extras]
+timezone = ["pytz"]
 
 [[package]]
 name = "sympy"
@@ -553,4 +555,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<3.12"
-content-hash = "76a66da2ffe0f05282d78efa498604bf6fc72884fd9ab31d146652a790fe3e64"
+content-hash = "8fcf4634c62f838d0507c3ef1c7760f92fab1f1b58095f716a294c06b6081bd1"
