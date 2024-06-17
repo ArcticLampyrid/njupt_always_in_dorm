@@ -1,4 +1,4 @@
-FROM python:3.11-bookworm as builder
+FROM python:3.12-bookworm as builder
 RUN pip install poetry==1.8.2
 ENV POETRY_NO_INTERACTION=1 \
     POETRY_VIRTUALENVS_IN_PROJECT=1 \
@@ -10,8 +10,9 @@ RUN --mount=type=cache,target=$POETRY_CACHE_DIR poetry install --no-dev --no-roo
 COPY ./src ./src
 RUN --mount=type=cache,target=$POETRY_CACHE_DIR poetry install --no-dev
 
-FROM python:3.11-slim-bookworm as runtime
-ENV VIRTUAL_ENV=/app/.venv \
+FROM python:3.12-slim-bookworm as runtime
+ENV TZ=Asia/Shanghai \
+    VIRTUAL_ENV=/app/.venv \
     PATH="/app/.venv/bin:$PATH"
 COPY --from=builder /app /app
 ENTRYPOINT ["python", "-m", "njupt_always_in_dorm"]
