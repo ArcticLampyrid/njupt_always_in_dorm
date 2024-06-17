@@ -8,7 +8,7 @@ packages = [{include = "njupt_always_in_dorm", from = "src"}]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.13"
-numpy = "^1.26.4"
+numpy = "^2.0.0"
 ddddocr = "^1.4.11"
 requests = "^2.31.0"
 pycryptodome = "^3.20.0"
