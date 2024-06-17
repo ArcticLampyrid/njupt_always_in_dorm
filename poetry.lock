@@ -129,13 +129,13 @@ cron = ["capturer (>=2.4)"]
 
 [[package]]
 name = "ddddocr"
-version = "1.4.11"
+version = "1.5.4"
 description = "带带弟弟OCR"
 optional = false
-python-versions = "<3.12"
+python-versions = "<3.13"
 files = [
-    {file = "ddddocr-1.4.11-py3-none-any.whl", hash = "sha256:e75d369c0d2132352b7d91d1ba968c02a7425d16b004a66616e87da1b5a0556c"},
-    {file = "ddddocr-1.4.11.tar.gz", hash = "sha256:788d58e074d6b3fc328432a561dd6a935372df1ee14c891f9bc1b074036ea3b4"},
+    {file = "ddddocr-1.5.4-py3-none-any.whl", hash = "sha256:5aa8fda70f60f814f96d79a4438e8bc4ff6681f2085e612f766906666c61f8ce"},
+    {file = "ddddocr-1.5.4.tar.gz", hash = "sha256:e240bbb6b8b40f8353084f222f94cb903bd0edacd5fcc59071fa18ca78e458a2"},
 ]
 
 [package.dependencies]
@@ -553,4 +553,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<3.12"
-content-hash = "76a66da2ffe0f05282d78efa498604bf6fc72884fd9ab31d146652a790fe3e64"
+content-hash = "1385b676cd839da06c49ae07a06dd73f236d496bc121b535588ff802df6295b2"
