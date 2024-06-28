@@ -46,7 +46,6 @@ class NjuptCheckIn:
                 max_check_in_count = None
             else:
                 max_check_in_count = int(max_check_in_count)
-            print(po)
             result.append(
                 NjuptCheckInInfo(
                     po["wid"],
